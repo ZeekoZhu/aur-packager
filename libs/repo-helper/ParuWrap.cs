@@ -55,10 +55,12 @@ public class ParuWrap
       var fetchPkgBuild = paru.WithArguments($"-G {packageName}");
       _logger.LogInformation("Command: {Command}", fetchPkgBuild.ToString());
       await fetchPkgBuild.ExecuteAsync();
-      var buildPkg = paru.WithArguments($"-B {packageName} --noconfirm");
+      var buildPkg = paru.WithArguments(
+        $"-B {packageName}");
       _logger.LogInformation("Building package {PackageName}", packageName);
       _logger.LogInformation("Command: {Command}", buildPkg.ToString());
       await buildPkg
+        .WithStandardInputPipe(PipeSource.FromString(LotsOfYes()))
         .ExecuteAsync();
       _logger.LogInformation("Package {PackageName} succeed", packageName);
       var result = new BuildResult
@@ -72,12 +74,21 @@ public class ParuWrap
     }
     catch (Exception e)
     {
-      _logger.LogError(e, "Build {PackageName} failed, output: {Output}", packageName, output);
+      _logger.LogError(
+        e,
+        "Build {PackageName} failed, output: {Output}",
+        packageName,
+        output);
       return new BuildResult
       {
         Output = output.ToString(),
         Succeed = false
       };
     }
+  }
+
+  private string LotsOfYes()
+  {
+    return string.Join(Environment.NewLine, Enumerable.Repeat("y", 50));
   }
 }
