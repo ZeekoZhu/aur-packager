@@ -1,11 +1,18 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 using CliWrap;
+using Microsoft.Extensions.Logging;
 
 namespace AurPackger.RepoHelper;
 
 public class ParuWrap
 {
+  private readonly ILogger<ParuWrap> _logger;
+
+  public ParuWrap(ILogger<ParuWrap> logger)
+  {
+    _logger = logger;
+  }
+
   public class BuildResult
   {
     public Task SaveAsync(string destDir)
@@ -33,8 +40,10 @@ public class ParuWrap
     {
       Directory.CreateDirectory(tmpDir);
       var buildDir = Path.Combine(tmpDir, packageName);
+      _logger.LogInformation("Build dir: {BuildDir}", buildDir);
       if (Directory.Exists(buildDir))
       {
+        _logger.LogInformation("Deleting previous build dir");
         Directory.Delete(buildDir, true);
       }
 
@@ -42,10 +51,16 @@ public class ParuWrap
         .WithWorkingDirectory(tmpDir)
         .WithStandardErrorPipe(PipeTarget.ToStringBuilder(output))
         .WithStandardOutputPipe(PipeTarget.ToStringBuilder(output));
-      await paru.WithArguments($"-G {packageName}")
+      _logger.LogInformation("Fetching package {PackageName}", packageName);
+      var fetchPkgBuild = paru.WithArguments($"-G {packageName}");
+      _logger.LogInformation("Command: {Command}", fetchPkgBuild.ToString());
+      await fetchPkgBuild.ExecuteAsync();
+      var buildPkg = paru.WithArguments($"-B {packageName} --noconfirm");
+      _logger.LogInformation("Building package {PackageName}", packageName);
+      _logger.LogInformation("Command: {Command}", buildPkg.ToString());
+      await buildPkg
         .ExecuteAsync();
-      await paru.WithArguments($"-B {packageName} --noconfirm")
-        .ExecuteAsync();
+      _logger.LogInformation("Package {PackageName} succeed", packageName);
       var result = new BuildResult
       {
         Output = output.ToString(),
@@ -57,6 +72,7 @@ public class ParuWrap
     }
     catch (Exception e)
     {
+      _logger.LogError(e, "Build {PackageName} failed, output: {Output}", packageName, output);
       return new BuildResult
       {
         Output = output.ToString(),

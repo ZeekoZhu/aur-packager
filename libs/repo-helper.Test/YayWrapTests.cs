@@ -1,18 +1,25 @@
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
+
 namespace AurPackger.RepoHelper.Test;
 
 public class YayWrapTests : IDisposable
 {
-  private string _tempDir;
-  public YayWrapTests()
+  private readonly string _tempDir;
+  private readonly ILogger<ParuWrap> _logger;
+
+  public YayWrapTests(ITestOutputHelper output)
   {
+    var loggerFactory = LoggerFactory.Create(b => b.AddXUnit(output));
+    _logger = loggerFactory.CreateLogger<ParuWrap>();
     _tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
     Directory.CreateDirectory(_tempDir);
   }
   [Fact]
-  public async Task Create_package()
+  public async Task Build_valid_package()
   {
-    var yay = new ParuWrap();
-    var result = await yay.BuildPackageAsync("yay-bin");
+    var aur = new ParuWrap(_logger);
+    var result = await aur.BuildPackageAsync("yay-bin");
     Assert.NotNull(result.FileName);
     var tempDir = Path.Combine(_tempDir, "yay-bin");
     Directory.CreateDirectory(tempDir);
@@ -23,7 +30,15 @@ public class YayWrapTests : IDisposable
     Assert.True(size > 0);
   }
 
-  public void Dispose()
+  [Fact]
+  public async Task Build_invalid_package()
+  {
+    var aur = new ParuWrap(_logger);
+    var result = await aur.BuildPackageAsync("yay-bin-foo-bar");
+    Assert.Null(result.FileName);
+  }
+
+  void IDisposable.Dispose()
   {
     Directory.Delete(_tempDir, true);
   }
