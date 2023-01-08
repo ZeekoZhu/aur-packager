@@ -8,9 +8,9 @@ public class ParuWrap
 {
   private readonly ILogger<ParuWrap> _logger;
 
-  public ParuWrap(ILogger<ParuWrap> logger)
+  public ParuWrap(ILoggerFactory loggerFactory)
   {
-    _logger = logger;
+    _logger = loggerFactory.CreateLogger<ParuWrap>();
   }
 
   public class BuildResult

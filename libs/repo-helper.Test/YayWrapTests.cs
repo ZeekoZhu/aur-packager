@@ -1,24 +1,22 @@
 using Microsoft.Extensions.Logging;
-using Xunit.Abstractions;
 
 namespace AurPackger.RepoHelper.Test;
 
 public class YayWrapTests : IDisposable
 {
   private readonly string _tempDir;
-  private readonly ILogger<ParuWrap> _logger;
+  private readonly ILoggerFactory _loggerFactory;
 
   public YayWrapTests(ITestOutputHelper output)
   {
-    var loggerFactory = LoggerFactory.Create(b => b.AddXUnit(output));
-    _logger = loggerFactory.CreateLogger<ParuWrap>();
+    _loggerFactory = LoggerFactory.Create(b => b.AddXUnit(output));
     _tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
     Directory.CreateDirectory(_tempDir);
   }
   [Fact]
   public async Task Build_valid_package()
   {
-    var aur = new ParuWrap(_logger);
+    var aur = new ParuWrap(_loggerFactory);
     var result = await aur.BuildPackageAsync("yay-bin");
     Assert.NotNull(result.FileName);
     var tempDir = Path.Combine(_tempDir, "yay-bin");
@@ -33,7 +31,7 @@ public class YayWrapTests : IDisposable
   [Fact]
   public async Task Build_invalid_package()
   {
-    var aur = new ParuWrap(_logger);
+    var aur = new ParuWrap(_loggerFactory);
     var result = await aur.BuildPackageAsync("yay-bin-foo-bar");
     Assert.Null(result.FileName);
   }
