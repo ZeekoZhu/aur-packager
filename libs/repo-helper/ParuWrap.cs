@@ -23,7 +23,13 @@ public class ParuWrap
       }
 
       Directory.CreateDirectory(destDir);
-      File.Copy(FileName, Path.Combine(destDir, Path.GetFileName(FileName)));
+      var destFileName = Path.Combine(destDir, Path.GetFileName(FileName));
+      if (File.Exists(destFileName))
+      {
+        File.Delete(destFileName);
+      }
+
+      File.Copy(FileName, destFileName);
       return Task.CompletedTask;
     }
 

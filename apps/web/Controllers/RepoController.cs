@@ -35,6 +35,7 @@ public class RepoController : ControllerBase
     if (result.Succeed)
     {
       await result.SaveAsync(Path.Combine(repo.DbFolder, "x86_64"));
+      await repo.UpdatePackagesAsync();
     }
 
     return Ok();
