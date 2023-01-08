@@ -24,9 +24,9 @@ public class YayWrapTests : IDisposable
     var tempDir = Path.Combine(_tempDir, "yay-bin");
     Directory.CreateDirectory(tempDir);
     await result.SaveAsync(tempDir);
-    Assert.True(File.Exists(Path.Combine(tempDir, result.FileName)));
+    Assert.True(File.Exists(Path.Combine(tempDir, result.FileName!)));
     // get file size
-    var size = new FileInfo(Path.Combine(tempDir, result.FileName)).Length;
+    var size = new FileInfo(Path.Combine(tempDir, result.FileName!)).Length;
     Assert.True(size > 0);
   }
 
