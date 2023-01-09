@@ -4,7 +4,7 @@ namespace AurPackager.Web.Entites;
 
 public class PackageDbContext : DbContext
 {
-  public DbSet<AurPackageModel> AurPackages { get; } = null!;
+  public DbSet<AurPackageModel> AurPackages { get; set; } = null!;
 
   public string DbPath { get; }
 
@@ -17,6 +17,4 @@ public class PackageDbContext : DbContext
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.UseSqlite($"Data Source={DbPath}");
-
-
 }

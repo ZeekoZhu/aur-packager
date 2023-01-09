@@ -1,4 +1,5 @@
 using AurPackager.RepoHelper;
+using AurPackager.Web.Entites;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddSingleton<RepoManager>(
   s => new RepoManager(repoRoot, s.GetRequiredService<ILoggerFactory>()));
 builder.Services.AddSingleton<ParuWrap>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<PackageDbContext>();
 
 var app = builder.Build();
 
