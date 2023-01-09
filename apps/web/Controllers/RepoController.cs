@@ -1,7 +1,7 @@
-using AurPackger.RepoHelper;
+using AurPackager.RepoHelper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AurPackger.Web.Controllers;
+namespace AurPackager.Web.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

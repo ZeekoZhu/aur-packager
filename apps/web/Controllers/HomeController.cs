@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
+using AurPackager.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using AurPackger.Web.Models;
 
-namespace AurPackger.Web.Controllers;
+namespace AurPackager.Web.Controllers;
 
 public class HomeController : Controller
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AurPackger.Web.Entites;
+namespace AurPackager.Web.Entites;
 
 public class AurPackageModel
 {

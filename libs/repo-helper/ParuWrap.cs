@@ -2,7 +2,7 @@
 using CliWrap;
 using Microsoft.Extensions.Logging;
 
-namespace AurPackger.RepoHelper;
+namespace AurPackager.RepoHelper;
 
 public class ParuWrap
 {

@@ -1,4 +1,4 @@
-namespace AurPackger.Web.Test;
+namespace AurPackager.Web.Test;
 
 public class UnitTest1
 {

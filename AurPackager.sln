@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackger.Web", "apps\web\AurPackger.Web.csproj", "{DE2E5226-723A-40C4-AEB7-2B2AC38D9934}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackager.Web", "apps\web\AurPackager.Web.csproj", "{DE2E5226-723A-40C4-AEB7-2B2AC38D9934}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{DBF5FD40-E76C-4D8F-9C52-F2F0C2A02D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackger.Web.Test", "apps\web.Test\AurPackger.Web.Test.csproj", "{2D9A3E59-07AB-4057-897C-A95D511F3D7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackager.Web.Test", "apps\web.Test\AurPackager.Web.Test.csproj", "{2D9A3E59-07AB-4057-897C-A95D511F3D7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{0C5E9AAD-8738-4842-89C3-515F29E9F7DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackger.RepoHelper", "libs\repo-helper\AurPackger.RepoHelper.csproj", "{532C5CAB-197F-42B5-9D16-B8D08BFF42E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackager.RepoHelper", "libs\repo-helper\AurPackager.RepoHelper.csproj", "{532C5CAB-197F-42B5-9D16-B8D08BFF42E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackger.RepoHelper.Test", "libs\repo-helper.Test\AurPackger.RepoHelper.Test.csproj", "{EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AurPackager.RepoHelper.Test", "libs\repo-helper.Test\AurPackager.RepoHelper.Test.csproj", "{EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

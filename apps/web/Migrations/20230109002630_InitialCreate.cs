@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AurPackger.Web.Migrations
+namespace AurPackager.Web.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "AurPackger.Web": {
+    "AurPackager.Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,

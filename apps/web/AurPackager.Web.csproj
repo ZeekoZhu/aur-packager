@@ -4,10 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>AurPackager.Web</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\repo-helper\AurPackger.RepoHelper.csproj" />
+    <ProjectReference Include="..\..\libs\repo-helper\AurPackager.RepoHelper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

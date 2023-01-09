@@ -1,9 +1,8 @@
 using System.Text;
 using CliWrap;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 
-namespace AurPackger.RepoHelper;
+namespace AurPackager.RepoHelper;
 
 public class RepoManager
 {

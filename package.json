@@ -1,5 +1,5 @@
 {
-  "name": "aur-packger",
+  "name": "aur-packager",
   "packageManager": "yarn@3.3.1",
   "version": "0.0.0",
   "license": "MIT",

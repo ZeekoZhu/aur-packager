@@ -1,4 +1,4 @@
-using AurPackger.RepoHelper;
+using AurPackager.RepoHelper;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);

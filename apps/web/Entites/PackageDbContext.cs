@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace AurPackger.Web.Entites;
+namespace AurPackager.Web.Entites;
 
 public class PackageDbContext : DbContext
 {

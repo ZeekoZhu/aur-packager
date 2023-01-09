@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace AurPackger.RepoHelper.Test;
+namespace AurPackager.RepoHelper.Test;
 
 public class RepoManagerTests
 {

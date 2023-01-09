@@ -1,4 +1,4 @@
-namespace AurPackger.Web.Models;
+namespace AurPackager.Web.Models;
 
 public class ErrorViewModel
 {
