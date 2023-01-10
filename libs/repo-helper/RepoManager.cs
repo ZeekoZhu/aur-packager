@@ -30,6 +30,7 @@ public class RepoManager
 
     public string Name { get; }
     public string DbPath => Path.Combine(DbFolder, $"{Name}.db.tar.gz");
+    public string PackagesFolder => Path.Combine(DbFolder, "x86_64");
     public string DbFolder { get; }
 
     public async Task InitAsync()

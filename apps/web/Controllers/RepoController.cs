@@ -1,7 +1,9 @@
 using AurPackager.RepoHelper;
 using AurPackager.Web.Entites;
+using AurPackager.Web.Jobs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 
 namespace AurPackager.Web.Controllers;
 
@@ -9,30 +11,28 @@ namespace AurPackager.Web.Controllers;
 [ApiController]
 public class RepoController : ControllerBase
 {
-  private readonly RepoManager _repoManager;
-  private readonly ParuWrap _paruWrap;
   private readonly PackageDbContext _packageDb;
+  private readonly ISchedulerFactory _schedulerFactory;
 
   public RepoController(
-    RepoManager repoManager,
-    ParuWrap paruWrap,
-    PackageDbContext packageDb)
+    PackageDbContext packageDb,
+    ISchedulerFactory schedulerFactory)
   {
-    _repoManager = repoManager;
-    _paruWrap = paruWrap;
     _packageDb = packageDb;
+    _schedulerFactory = schedulerFactory;
   }
 
   // todo:
-  // - POST /repo/xxx/add-package
-  // - POST /repo/xxx/remove-package
+  // x POST /repo/xxx/remove-package
   // - POST /repo/xxx/update
+  // - async build
+  // - dockerfile
 
 
   /**
    * add a aur package to the repo
    */
-  [HttpPost("{repoName}/add-package")]
+  [HttpPost("{repoName}/package")]
   public async Task<IActionResult> AddPackageAsync(
     string repoName,
     [FromBody] AddPackageReq req)
@@ -50,15 +50,36 @@ public class RepoController : ControllerBase
       await _packageDb.SaveChangesAsync();
     }
 
-    var repo = await _repoManager.GetRepoAsync(repoName);
-    var result = await _paruWrap.BuildPackageAsync(req.PackageName);
-    if (result.Succeed)
+    return Ok();
+  }
+
+  [HttpDelete("{repoName}/package/{packageName}")]
+  public async Task<IActionResult> RemovePackageAsync(
+    string repoName,
+    string packageName)
+  {
+    var aurPackageModel = await _packageDb.AurPackages.FirstOrDefaultAsync(
+      it => it.PackageName == packageName &&
+            it.LocalRepoName == repoName);
+    if (aurPackageModel != null)
     {
-      await result.SaveAsync(Path.Combine(repo.DbFolder, "x86_64"));
-      await repo.UpdatePackagesAsync();
+      _packageDb.AurPackages.Remove(aurPackageModel);
+      await _packageDb.SaveChangesAsync();
     }
 
-    return Ok(result);
+    return Ok();
+  }
+
+  [HttpPost("{repoName}/update")]
+  public async Task<IActionResult> UpdateRepoAsync(
+    string repoName)
+  {
+    var scheduler = await _schedulerFactory.GetScheduler();
+    await scheduler.TriggerJob(
+      UpdateRepoJob.JobKey,
+      new JobDataMap { { "repoName", repoName } });
+
+    return Ok();
   }
 }
 

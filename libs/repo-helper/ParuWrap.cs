@@ -62,7 +62,7 @@ public class ParuWrap
       _logger.LogInformation("Command: {Command}", fetchPkgBuild.ToString());
       await fetchPkgBuild.ExecuteAsync();
       var buildPkg = paru.WithArguments(
-        $"-B {packageName}");
+        $"-B {packageName} --removemake");
       _logger.LogInformation("Building package {PackageName}", packageName);
       _logger.LogInformation("Command: {Command}", buildPkg.ToString());
       await buildPkg
@@ -95,6 +95,7 @@ public class ParuWrap
 
   private string LotsOfYes()
   {
-    return string.Join(Environment.NewLine, Enumerable.Repeat("y", 50));
+    // todo: implement auto confirm stream
+    return string.Join(Environment.NewLine, Enumerable.Repeat("y\n1", 50));
   }
 }
