@@ -53,22 +53,31 @@ public class ParuWrap
         Directory.Delete(buildDir, true);
       }
 
+      using var autoYes = new AutoYes(output);
+      autoYes.Yes("[y/N]").Yes("(default=1)", "1").Yes("[Y/n]");
+
       var paru = Cli.Wrap("paru")
         .WithWorkingDirectory(tmpDir)
-        .WithStandardErrorPipe(PipeTarget.ToStringBuilder(output))
-        .WithStandardOutputPipe(PipeTarget.ToStringBuilder(output));
+        .WithStandardErrorPipe(PipeTarget.ToDelegate(autoYes.AnswerAsync))
+        .WithStandardOutputPipe(PipeTarget.ToDelegate(autoYes.AnswerAsync));
+
       _logger.LogInformation("Fetching package {PackageName}", packageName);
       var fetchPkgBuild = paru.WithArguments($"-G {packageName}");
+
       _logger.LogInformation("Command: {Command}", fetchPkgBuild.ToString());
       await fetchPkgBuild.ExecuteAsync();
+
       var buildPkg = paru.WithArguments(
         $"-B {packageName} --removemake");
       _logger.LogInformation("Building package {PackageName}", packageName);
       _logger.LogInformation("Command: {Command}", buildPkg.ToString());
+
       await buildPkg
-        .WithStandardInputPipe(PipeSource.FromString(LotsOfYes()))
+        .WithStandardInputPipe(PipeSource.FromStream(autoYes.Input))
         .ExecuteAsync();
+
       _logger.LogInformation("Package {PackageName} succeed", packageName);
+
       var result = new BuildResult
       {
         Output = output.ToString(),
@@ -91,11 +100,5 @@ public class ParuWrap
         Succeed = false
       };
     }
-  }
-
-  private string LotsOfYes()
-  {
-    // todo: implement auto confirm stream
-    return string.Join(Environment.NewLine, Enumerable.Repeat("y\n1", 50));
   }
 }

@@ -35,16 +35,15 @@ public class UpdateRepoJob : IJob
         .Where(it => it.LocalRepoName == repoName)
         .Select(it => it.PackageName)
         .ToListAsync();
-      var buildTasks = packages.Select(
-        async pkg =>
+      foreach (var package in packages)
+      {
+        var result = await _paruWrap.BuildPackageAsync(package);
+        if (result.Succeed)
         {
-          var result = await _paruWrap.BuildPackageAsync(pkg);
-          if (result.Succeed)
-          {
-            await result.SaveAsync(repo.PackagesFolder);
-          }
-        });
-      await Task.WhenAll(buildTasks);
+          await result.SaveAsync(repo.PackagesFolder);
+        }
+      }
+
       await repo.UpdatePackagesAsync();
     }
     catch (Exception e)
