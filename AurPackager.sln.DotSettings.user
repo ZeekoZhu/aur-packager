@@ -5,7 +5,7 @@
     &lt;TestId&gt;xUnit::EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51::net6.0::AurPackager.RepoHelper.Test.AutoYesTests.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=77b2d3d1_002D94df_002D4a8f_002Daa5c_002D92357cc7c926/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="YayWrapTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=77b2d3d1_002D94df_002D4a8f_002Daa5c_002D92357cc7c926/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="YayWrapTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51::net6.0::AurPackager.RepoHelper.Test.YayWrapTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
@@ -18,6 +18,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd7b9fe5_002D9927_002D49d9_002D8a6c_002D73d52868acbf/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="2" Name="AutoYesTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51::net6.0::AurPackager.RepoHelper.Test.AutoYesTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fef5c2b5_002D3d31_002D456c_002D83bb_002D7619ab78595d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RepoManagerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::EF58CC2C-C550-4CDD-9A37-B3EB2C9AAF51::net6.0::AurPackager.RepoHelper.Test.RepoManagerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

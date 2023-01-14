@@ -1,6 +1,7 @@
 using AurPackager.RepoHelper;
 using AurPackager.Web.Entites;
 using AurPackager.Web.Jobs;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Quartz;
@@ -54,6 +55,12 @@ if (app.Environment.IsDevelopment())
 // allow browsing /repos
 void EnableRepo()
 {
+  // aspnet core doesn't follow symlinks
+  // so we need to rewrite the path here
+  var rewriteOptions = new RewriteOptions()
+    // *.db => *.db.tar.gz
+    .AddRewrite(@"^repos/(.+)\.db$", "repos/$1.db.tar.gz", true);
+  app.UseRewriter(rewriteOptions);
   var fileProvider = new PhysicalFileProvider(
     repoRoot);
   var requestPath = "/repos";
@@ -63,7 +70,8 @@ void EnableRepo()
     new StaticFileOptions
     {
       FileProvider = fileProvider,
-      RequestPath = requestPath
+      RequestPath = requestPath,
+      ServeUnknownFileTypes = true,
     });
 
   app.UseDirectoryBrowser(

@@ -6,13 +6,13 @@ namespace AurPackager.RepoHelper;
 
 public class RepoManager
 {
-  private readonly string _repoPath;
+  private readonly string _reposRootPath;
   private readonly ILoggerFactory _loggerFactory;
   private readonly ILogger<RepoManager> _logger;
 
-  public RepoManager(string repoPath, ILoggerFactory loggerFactory)
+  public RepoManager(string reposRootPath, ILoggerFactory loggerFactory)
   {
-    _repoPath = repoPath;
+    _reposRootPath = reposRootPath;
     _loggerFactory = loggerFactory;
     _logger = loggerFactory.CreateLogger<RepoManager>();
   }
@@ -30,7 +30,7 @@ public class RepoManager
 
     public string Name { get; }
     public string DbPath => Path.Combine(DbFolder, $"{Name}.db.tar.gz");
-    public string PackagesFolder => Path.Combine(DbFolder, "x86_64");
+    public string PackagesFolder => DbFolder;
     public string DbFolder { get; }
 
     public async Task InitAsync()
@@ -65,14 +65,13 @@ public class RepoManager
 
     public async Task UpdatePackagesAsync()
     {
-      var archFolder = Path.Combine(DbFolder, "x86_64");
-      if (!Directory.Exists(archFolder))
+      if (!Directory.Exists(DbFolder))
       {
         _logger.LogInformation("No packages found for repo {Name}", Name);
         return;
       }
 
-      var packages = Directory.GetFiles(archFolder, "*.pkg.tar.zst");
+      var packages = Directory.GetFiles(DbFolder, "*.pkg.tar.zst");
       if (packages.Length == 0)
       {
         _logger.LogInformation("No packages found for repo {Name}", Name);
@@ -106,7 +105,7 @@ public class RepoManager
 
   private string GetDbFolder(string repoName)
   {
-    return Path.Combine(_repoPath, repoName);
+    return Path.Combine(_reposRootPath, "x86_64", repoName);
   }
 
   public Task RemoveRepoAsync(string repoName)
