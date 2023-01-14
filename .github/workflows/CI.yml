@@ -28,7 +28,7 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
     - uses: nrwl/nx-set-shas@v3
     - run: yarn install
-    - run: npx nx workspace-lint
-    - run: npx nx format:check
-    - run: npx nx affected --target=lint --parallel=3
-    - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
+    - run: yarn exec nx workspace-lint
+    - run: yarn exec nx format:check
+    - run: yarn exec nx affected --target=lint --parallel=3
+    - run: yarn exec nx affected --target=test --parallel=3 --ci --code-coverage
