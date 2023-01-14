@@ -15,5 +15,8 @@
   },
   "scripts": {
     "prepare": "nx g @nx-dotnet/core:restore"
+  },
+  "volta": {
+    "node": "16.19.0"
   }
 }
