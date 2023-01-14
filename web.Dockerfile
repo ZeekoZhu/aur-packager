@@ -1,20 +1,4 @@
-FROM docker.io/archlinux:base-devel
-
-RUN pacman -Syu --noconfirm --needed git sudo
-
-RUN echo "container ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-RUN useradd --create-home container
-
-USER container
-
-RUN git clone https://aur.archlinux.org/paru-git.git /tmp/paru
-WORKDIR /tmp/paru
-
-RUN makepkg -si --noconfirm
-
-RUN rm -rf /tmp/paru
-
+FROM zeekozhu/arch-dev:latest
 
 ENV ASPNETCORE_URLS=http://+:5000
 WORKDIR /home/container

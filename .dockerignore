@@ -1,0 +1,6 @@
+dist
+node_modules
+apps
+libs
+.git
+.yarn

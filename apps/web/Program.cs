@@ -17,7 +17,7 @@ builder.Services.AddLogging(cfg => cfg.AddConsole());
 // app services
 builder.Services.AddSingleton<RepoManager>(
   s => new RepoManager(repoRoot, s.GetRequiredService<ILoggerFactory>()));
-builder.Services.AddSingleton<ParuWrap>();
+builder.Services.AddSingleton<AurWrap>();
 
 // swagger
 builder.Services.AddEndpointsApiExplorer();

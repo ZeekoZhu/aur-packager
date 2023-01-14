@@ -8,17 +8,17 @@ namespace AurPackager.Web.Jobs;
 public class UpdateRepoJob : IJob
 {
   private readonly RepoManager _repoManager;
-  private readonly ParuWrap _paruWrap;
+  private readonly AurWrap _aurWrap;
   private readonly PackageDbContext _packageDb;
   public static readonly JobKey JobKey = new("UpdateRepoJob");
 
   public UpdateRepoJob(
     RepoManager repoManager,
-    ParuWrap paruWrap,
+    AurWrap aurWrap,
     PackageDbContext packageDb)
   {
     _repoManager = repoManager;
-    _paruWrap = paruWrap;
+    _aurWrap = aurWrap;
     _packageDb = packageDb;
   }
 
@@ -37,7 +37,7 @@ public class UpdateRepoJob : IJob
         .ToListAsync();
       foreach (var package in packages)
       {
-        var result = await _paruWrap.BuildPackageAsync(package);
+        var result = await _aurWrap.BuildPackageAsync(package);
         if (result.Succeed)
         {
           await result.SaveAsync(repo.PackagesFolder);

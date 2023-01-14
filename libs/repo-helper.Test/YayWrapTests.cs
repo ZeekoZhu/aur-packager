@@ -16,7 +16,7 @@ public class YayWrapTests : IDisposable
   [Fact]
   public async Task Build_valid_package()
   {
-    var aur = new ParuWrap(_loggerFactory);
+    var aur = new AurWrap(_loggerFactory);
     var result = await aur.BuildPackageAsync("yay-bin");
     Assert.NotNull(result.FileName);
     var tempDir = Path.Combine(_tempDir, "yay-bin");
@@ -31,7 +31,7 @@ public class YayWrapTests : IDisposable
   [Fact]
   public async Task Build_invalid_package()
   {
-    var aur = new ParuWrap(_loggerFactory);
+    var aur = new AurWrap(_loggerFactory);
     var result = await aur.BuildPackageAsync("yay-bin-foo-bar");
     Assert.Null(result.FileName);
   }
