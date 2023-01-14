@@ -66,7 +66,19 @@ public class RepoManager
     public async Task UpdatePackagesAsync()
     {
       var archFolder = Path.Combine(DbFolder, "x86_64");
+      if (!Directory.Exists(archFolder))
+      {
+        _logger.LogInformation("No packages found for repo {Name}", Name);
+        return;
+      }
+
       var packages = Directory.GetFiles(archFolder, "*.pkg.tar.zst");
+      if (packages.Length == 0)
+      {
+        _logger.LogInformation("No packages found for repo {Name}", Name);
+        return;
+      }
+
       var output = new StringBuilder();
       var repoAdd = Cli.Wrap("repo-add")
         .WithStandardErrorPipe(PipeTarget.ToStringBuilder(output))

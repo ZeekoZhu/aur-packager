@@ -13,6 +13,11 @@ public class PackageDbContext : DbContext
     var folder = Environment.SpecialFolder.LocalApplicationData;
     var path = Environment.GetFolderPath(folder);
     DbPath = Path.Combine(path, "aur-packager", "aur-packager.db");
+    var dbFolder = Path.GetDirectoryName(DbPath)!;
+    if (!Directory.Exists(dbFolder))
+    {
+      Directory.CreateDirectory(dbFolder);
+    }
   }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

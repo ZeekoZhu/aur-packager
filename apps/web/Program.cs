@@ -1,6 +1,7 @@
 using AurPackager.RepoHelper;
 using AurPackager.Web.Entites;
 using AurPackager.Web.Jobs;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Quartz;
 
@@ -30,7 +31,8 @@ builder.Services.AddQuartz(
   q =>
   {
     q.UseMicrosoftDependencyInjectionJobFactory();
-    q.AddJob<UpdateRepoJob>(opt => opt.WithIdentity(UpdateRepoJob.JobKey).StoreDurably(true));
+    q.AddJob<UpdateRepoJob>(
+      opt => opt.WithIdentity(UpdateRepoJob.JobKey).StoreDurably(true));
   });
 
 // ASP.NET Core hosting
@@ -42,20 +44,12 @@ builder.Services.AddQuartzServer(
   });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-  app.UseHsts();
-}
 
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 // allow browsing /repos
 void EnableRepo()
@@ -81,6 +75,15 @@ void EnableRepo()
 }
 
 EnableRepo();
+
+using (var serviceScope = app.Services
+         .GetRequiredService<IServiceScopeFactory>()
+         .CreateScope())
+{
+  var context =
+    serviceScope.ServiceProvider.GetRequiredService<PackageDbContext>();
+  context.Database.Migrate();
+}
 
 app.UseAuthorization();
 

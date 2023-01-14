@@ -499,9 +499,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aur-packger@workspace:.":
+"aur-packager@workspace:.":
   version: 0.0.0-use.local
-  resolution: "aur-packger@workspace:."
+  resolution: "aur-packager@workspace:."
   dependencies:
     "@nrwl/js": 15.4.5
     "@nrwl/nx-cloud": latest

@@ -32,6 +32,19 @@
     },
     "lint": {
       "executor": "@nx-dotnet/core:format"
+    },
+    "publish": {
+      "executor": "@nx-dotnet/core:publish",
+      "outputs": [
+        "{workspaceRoot}/publish/apps/web"
+      ],
+      "options": {
+        "output": "publish/apps/web",
+        "configuration": "Release",
+        "selfContained": true,
+        "runtime": "linux-x64",
+        "noDependencies": true
+      }
     }
   },
   "tags": []

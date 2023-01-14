@@ -9,7 +9,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "publish"
         ],
         "accessToken": "N2FhNDgxZTctNzRmMC00MzgyLWJkYWYtNWUyNjkzN2I5NWFifHJlYWQtd3JpdGU="
       }
